@@ -69,7 +69,7 @@ class HomeQT(QMainWindow):
         super().__init__()
         
         # parent & event 
-        self.setWindowTitle("VinBigData NOHCEL")
+        self.setWindowTitle("HCMUS Assistant")
         self.setWindowModality(Qt.WindowModality.ApplicationModal)
         self.resize(1980, 1080)
         self.eventCreateAction()
@@ -228,7 +228,7 @@ class HomeQT(QMainWindow):
         self.label_background.setPixmap(app.view.var.background_view)
         self.label_background.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
-        self.label_privacy = QLabel("VinBigdata Privacy @2023")
+        self.label_privacy = QLabel("Privacy @2023")
         self.label_privacy.setStyleSheet("color: black")
         self.label_privacy.setAlignment(Qt.AlignmentFlag.AlignBottom)
         

@@ -21,7 +21,7 @@ class QLabel_alterada(QLabel):
 class LoginUIQT(QWidget):
     def __init__(self, parent = None):
         super().__init__()
-        self.setWindowTitle("NOHCEL")
+        self.setWindowTitle("HCMUS Assistant")
         self.resize(1980, 1080) 
         self.setExternalVal()
         self.initUI()
@@ -65,7 +65,7 @@ class LoginUIQT(QWidget):
         self.label_background.setPixmap(app.view.var.background_view)
         self.label_background.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
-        self.label_privacy = QLabel("VinBigdata Privacy @2023")
+        self.label_privacy = QLabel("Privacy @2023")
         self.label_privacy.setStyleSheet("color: black")
         self.label_privacy.setAlignment(Qt.AlignmentFlag.AlignBottom)
         
