@@ -79,6 +79,9 @@ def speakTextThread(command):
     app.environment.thread2.daemon = True
     app.environment.thread2.start()
     
+def processingLLM(text):
+    return GPT3(text).text
+    
     
     
     

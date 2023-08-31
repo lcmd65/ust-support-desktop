@@ -8,6 +8,7 @@ import threading
 import app.view.var
 import app.environment
 import gc
+import app.func.func
 from functools import partial
 from app.func.func import audioMicroToText, speakTextThread
 from PyQt6.QtWidgets import (
@@ -104,6 +105,13 @@ class HomeQT(QMainWindow):
                     event.ignore()
         else:
             event.ignore()
+    
+    def keyPressEvent(self, qKeyEvent):
+            if qKeyEvent.key() == 16777220 or (qKeyEvent.key() == 43):
+                text = self.nohcel_conversation_entry.text()
+                text_output = self.eventHomeProcessingLLM(text)
+                self.nohcel_conversation_view.setText(text_output)
+                
                  
     # external variable background and icon init
     def eventSetExternalVal(self):
@@ -162,10 +170,10 @@ class HomeQT(QMainWindow):
             QMessageBox.critical(None, "Error", repr(e))
             
     def eventHomeProcessingLLM(self, text):
-        """ task 1         """  
-        
-        pass
-    
+        try:
+            return app.func.func.processingLLM(text)
+        except:
+            return "Xin lỗi, bạn có thể nói rõ hơn không!"    
     # thử nghiệm API speech to text trên sys
     def eventButtonClickedAudioRecord(self):
         if not self.conversation:
