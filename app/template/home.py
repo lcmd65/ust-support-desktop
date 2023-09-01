@@ -110,13 +110,15 @@ class HomeQT(QMainWindow):
             if qKeyEvent.key() == 16777220 or (qKeyEvent.key() == 43):
                 text = self.nohcel_conversation_entry.text()
                 text_output = self.eventHomeProcessingLLM(text)
-                self.nohcel_conversation_view.setText(text_output)
+                self.eventInitLabelConversation(text_output)
                 
     def eventInitLabelConversation(self, text):
-        index = len(self.conversation_shot)
-        self.conversation_shot[index] =  QLabel()
-        self.nohcel_conversation_view_layout.addWidget(self.conversation_shot[[index]])
+        self.conversation_shot.append([])
+        index = len(self.conversation_shot)-1
+        self.conversation_shot[index] = QLabel()
+        self.nohcel_conversation_view_layout.addWidget(self.conversation_shot[index])
         self.conversation_shot[index].setText(text)
+        self.setStyle(self.conversation_shot[index], "app/template/css/home/conversation/label.css")
         
     # external variable background and icon init
     def eventSetExternalVal(self):

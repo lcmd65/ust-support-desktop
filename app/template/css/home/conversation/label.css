@@ -1,0 +1,7 @@
+QLabel {
+    max-height: 200px;
+    border-radius: 8px;
+    background-color: rgb(245, 245, 245);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: medium;
+}
