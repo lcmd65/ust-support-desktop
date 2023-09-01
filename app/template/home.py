@@ -15,6 +15,7 @@ from PyQt6.QtWidgets import (
     QHBoxLayout,
     QTreeView,
     QStyle,
+    QScrollArea,
     QVBoxLayout,
     QApplication,
     QMenuBar,
@@ -98,7 +99,9 @@ class HomeQT(QMainWindow):
             if not event.spontaneous():
                 event.ignore() # prevent the program auto exit 
             else:
-                reply = QMessageBox.question(self, "Quit?", "Are you sure you want to quit?", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+                reply = QMessageBox.question(self, "Quit?", "Are you sure you want to quit?", \
+                    QMessageBox.StandardButton.Yes | \
+                    QMessageBox.StandardButton.No)
                 if reply == QMessageBox.StandardButton.Yes:
                     event.accept()
                 else:
@@ -110,15 +113,23 @@ class HomeQT(QMainWindow):
             if qKeyEvent.key() == 16777220 or (qKeyEvent.key() == 43):
                 text = self.nohcel_conversation_entry.text()
                 text_output = self.eventHomeProcessingLLM(text)
-                self.eventInitLabelConversation(text_output)
+                self.eventInitLabelConversation(text, text_output)
                 
-    def eventInitLabelConversation(self, text):
-        self.conversation_shot.append([])
+    def eventInitLabelConversation(self, text, text_output):
+        self.conversation_shot.append([None for _ in range (2)])
         index = len(self.conversation_shot)-1
-        self.conversation_shot[index] = QLabel()
-        self.nohcel_conversation_view_layout.addWidget(self.conversation_shot[index])
-        self.conversation_shot[index].setText(text)
-        self.setStyle(self.conversation_shot[index], "app/template/css/home/conversation/label.css")
+        
+        self.conversation_shot[index][0] = QLabel() 
+        self.nohcel_conversation_view_layout.addWidget(self.conversation_shot[index][0])
+        self.conversation_shot[index][0].setText(text)
+        self.conversation_shot[index][0].setWordWrap(True)
+        self.setStyle(self.conversation_shot[index][0], "app/template/css/home/conversation/label_user.css")
+        
+        self.conversation_shot[index][1] = QLabel()
+        self.nohcel_conversation_view_layout.addWidget(self.conversation_shot[index][1])
+        self.conversation_shot[index][1].setText(text_output)
+        self.conversation_shot[index][1].setWordWrap(True)
+        self.setStyle(self.conversation_shot[index][1], "app/template/css/home/conversation/label.css")
         
     # external variable background and icon init
     def eventSetExternalVal(self):
@@ -275,10 +286,14 @@ class HomeQT(QMainWindow):
         self.nohcel_frame.setLayout(self.nohcel_frame_layout)
         self.nohcel_main_layout.addWidget(self.nohcel_frame)
         
+        self.nohcel_conversation_area = QScrollArea()
+        self.nohcel_conversation_area.setWidgetResizable(True)
+        
         self.nohcel_conversation_view = QLabel()
-        self.nohcel_frame_layout.addWidget(self.nohcel_conversation_view)
+        self.nohcel_conversation_area.setWidget(self.nohcel_conversation_view )
         self.nohcel_conversation_view_layout = QVBoxLayout()
         self.nohcel_conversation_view.setLayout(self.nohcel_conversation_view_layout)
+        self.nohcel_frame_layout.addWidget(self.nohcel_conversation_area)
         
         self.nohcel_conversation_entry = QLineEdit()
         self.nohcel_conversation_entry.setPlaceholderText("Nhập câu lệnh tại đây")

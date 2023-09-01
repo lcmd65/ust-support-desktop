@@ -1,0 +1,16 @@
+[{
+        "instruction": "Trang web của trường đại học khoa học tự nhiên",
+        "input": "",
+        "output": "Một số trang web của trường đại học khoa học tự nhiên: \n1.https://www.hcmus.edu.vn  \n2. https://portal2.hcmus.edu.vn/Login.aspx?ReturnUrl=%2f "
+    },
+    {
+        "instruction": "Quy định xử lí cảnh cáo học vụ",
+        "input": "",
+        "output": "Sinh viên bị buộc thôi học trong các trường hợp sau: \n1.Không hoàn thành nghĩa vụ học phí đúng thời gian quy định của trường; \n2.Tự ý bỏ học hoặc bỏ thi từ một học kỳ chính trở lên; \n3.Được cảnh báo học tập lần thứ ba liên tiếp; \n4.Bị kỷ luật ở mức bị buộc thôi học theo quy định hiện hành;"
+    },
+    {
+        "instruction": "Quy định xử lí cảnh cáo học vụ",
+        "input": "",
+        "output": "Sinh viên bị buộc thôi học trong "
+    }
+]
