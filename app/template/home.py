@@ -77,7 +77,7 @@ class HomeQT(QMainWindow):
         self.createMenuBar()
         self.eventSetExternalVal()
         self.conversation = QStandardItemModel()
-        self.conversation_num_shot = 0
+        self.conversation_shot = []
         
         # audio thread in environment variable
         self.initThreadingWorker()
@@ -112,7 +112,12 @@ class HomeQT(QMainWindow):
                 text_output = self.eventHomeProcessingLLM(text)
                 self.nohcel_conversation_view.setText(text_output)
                 
-                 
+    def eventInitLabelConversation(self, text):
+        index = len(self.conversation_shot)
+        self.conversation_shot[index] =  QLabel()
+        self.nohcel_conversation_view_layout.addWidget(self.conversation_shot[[index]])
+        self.conversation_shot[index].setText(text)
+        
     # external variable background and icon init
     def eventSetExternalVal(self):
         app.view.var.background_view = QPixmap('app/images/background_login.png').scaled(810, 801,\
@@ -270,6 +275,8 @@ class HomeQT(QMainWindow):
         
         self.nohcel_conversation_view = QLabel()
         self.nohcel_frame_layout.addWidget(self.nohcel_conversation_view)
+        self.nohcel_conversation_view_layout = QVBoxLayout()
+        self.nohcel_conversation_view.setLayout(self.nohcel_conversation_view_layout)
         
         self.nohcel_conversation_entry = QLineEdit()
         self.nohcel_conversation_entry.setPlaceholderText("Nhập câu lệnh tại đây")
