@@ -9,8 +9,28 @@
         "output": "Sinh viên bị buộc thôi học trong các trường hợp sau: \n1.Không hoàn thành nghĩa vụ học phí đúng thời gian quy định của trường; \n2.Tự ý bỏ học hoặc bỏ thi từ một học kỳ chính trở lên; \n3.Được cảnh báo học tập lần thứ ba liên tiếp; \n4.Bị kỷ luật ở mức bị buộc thôi học theo quy định hiện hành;"
     },
     {
-        "instruction": "Quy định xử lí cảnh cáo học vụ",
+        "instruction": "Chương trình đào tạo",
         "input": "",
-        "output": "Sinh viên bị buộc thôi học trong "
+        "output": "Xem chương trình đào tạo của HCMUS tại: https://www.hcmus.edu.vn/đào-tạo/chuong-trinh-dao-tao"
+    },
+    {
+        "instruction": "Thông tin tuyển sinh",
+        "input": "",
+        "output": "Xem chương thông tin tuyển sinh của HCMUS tại: https://tuyensinh.hcmus.edu.vn"
+    },
+    {
+        "instruction": "Giới thiệu ngành Khoa học dữ liệu",
+        "input": "HCMUS",
+        "output": "Mã ngành: 7480109 \nChỉ tiêu: 50 \n2 PHƯƠNG THỨC XÉT TUYỂN NHIỀU NHẤT: \n1. Xét tuyển dựa vào kỳ thi ĐGNL: năm 2020 không có điểm chuẩn \n2. Xét tuyển dựa vào kỳ thi Tốt ngiệp THPT 100% tổng chỉ tiêu ( điểm chuẩn 2020: 24.00 điểm) với tổ hợp xét tuyển: \nToán - Lý - Hóa (A00) \nToán - Lý - Tiếng Anh (A01) \nToán – Tiếng Anh - Sinh (B08) \nToán – Hóa – Tiếng Anh (D07)"
+    },
+    {
+        "instruction": "Giới thiệu ngành Toán",
+        "input": "HCMUS",
+        "output": "Các ngành Toán học, Toán ứng dụng, Toán tin (thuộc nhóm ngành Toán học) được tuyển sinh chung. Bằng tốt nghiệp cử nhân ghi ngành, không ghi chuyên ngành. Trong giai đoạn đại cương (3 học kì đầu) các sinh viên học chung. Sau đó sinh viên sẽ bắt đầu chọn ngành và chuyên ngành theo nguyện vọng. Chương trình của nhóm ngành có tính tích hợp và liên thông cao, cho phép sinh viên được chọn học môn học trong cả nhóm ngành. \nMã tuyển sinh: 7460101_NN \nTổ hợp môn xét tuyển (phương thức thi THPT): \nA00: Toán – Lý – Hóa \nA01: Toán – Lý – Tiếng Anh \nB00: Toán – Hóa – Sinh \nD01: Toán – Ngữ Văn – Tiếng Anh \nChỉ tiêu: 210 sinh viên \n\nNgành Toán học \nNgành Toán học nghiên cứu những hiểu biết nền tảng và then chốt, giúp người học có khả năng đi vào bất kì lĩnh vực nào sử dụng năng lực toán học. Chương trình có các chuyên ngành Đại số, Giải tích, Giải tích số, Xác suất Thống kê. \n\nNgành Toán ứng dụng \nNgành Toán ứng dụng sử dụng các tri thức toán học tham gia giải quyết các vấn đề do các lĩnh vực ngoài toán đặt ra, hoặc nghiên cứu những vấn đề toán học có tiềm năng cao có thể sớm giúp ích được cho các lĩnh vực ngoài toán. Chương trình có các chuyên ngành Cơ học, Lý luận và phương pháp giảng dạy môn Toán, Toán tài chính, Tối ưu. \n\nNgành Toán tin \nNgành Toán tin gồm phần của Tin học (khoa học về thông tin) sử dụng nhiều toán học và phần của toán học phục vụ cho tin học. Chương trình có các chuyên ngành Khoa học dữ liệu, Phương pháp toán trong tin học, Toán tin ứng dụng. "
+    },
+    {
+        "instruction": "Sinh viên HCMUS học ở đâu",
+        "input": "",
+        "output": "Các chương trình đại trà của trường sẽ học hai năm đầu tại cơ sở Linh Trung, thành phố Thủ Đức và hai năm cuối học tại cơ sở tại địa chỉ đường Nguyễn Văn Cừ, quận 5, thành phố Hồ Chí Minh. Các chương trình chất lượng cao học tại cơ sở Nguyễn Văn Cừ. "
     }
 ]
