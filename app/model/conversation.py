@@ -3,6 +3,7 @@ import fuzz
 import re
 import json
 from app.func.func import audioToText
+
 class Statement():
     def __init__(self, text):
         self._text = text
@@ -88,6 +89,9 @@ class Conver():
     def __init__(self):
         self.bot_ = []
         self.user_ = []
+    
+    def processingUserText():
+        
         
     
     
