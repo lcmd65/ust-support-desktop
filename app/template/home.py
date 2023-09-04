@@ -30,6 +30,7 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtGui import *
 from PyQt6.QtCore import *
+from app.model.conversation import Conver
 
 ################################################################################################################################################################################
 # QObject for Recording with multithreading while running QApplication #########################################################################################################
@@ -79,6 +80,7 @@ class HomeQT(QMainWindow):
         self.eventSetExternalVal()
         self.conversation = QStandardItemModel()
         self.conversation_shot = []
+        self.conversation_model = Conver()
         
         # audio thread in environment variable
         self.initThreadingWorker()
@@ -112,7 +114,11 @@ class HomeQT(QMainWindow):
     def keyPressEvent(self, qKeyEvent):
             if qKeyEvent.key() == 16777220 or (qKeyEvent.key() == 43):
                 text = self.nohcel_conversation_entry.text()
-                text_output = self.eventHomeProcessingLLM(text)
+                self.conversation_model.addConver(text)
+                if self.conversation_model.score[self.conversation_model.length-1] >= 0.7:
+                    text_output = self.conversation_model.getConver()
+                else:
+                    text_output = self.eventHomeProcessingLLM(text)
                 self.eventInitLabelConversation(text, text_output)
                 
     def eventInitLabelConversation(self, text, text_output):
