@@ -64,10 +64,6 @@ class Conver():
     def getConver(self):
         return self.bot_[self.length -1]
         
-if __name__ == "__main__":
-    pass
-
-# python3 app/model/conversation.py
 
 
         
