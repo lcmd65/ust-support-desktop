@@ -15,6 +15,7 @@ class Dataset():
         print(self.instruction,\
         self.input,\
         self.output)
+        
 def readEmbeddedDatabase():
     database = []
     with open("app/embedded/promp.json", "r+") as file:
@@ -65,6 +66,7 @@ class Conver():
         
 if __name__ == "__main__":
     pass
+
 # python3 app/model/conversation.py
 
 

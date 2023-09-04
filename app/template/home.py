@@ -115,7 +115,7 @@ class HomeQT(QMainWindow):
             if qKeyEvent.key() == 16777220 or (qKeyEvent.key() == 43):
                 text = self.nohcel_conversation_entry.text()
                 self.conversation_model.addConver(text)
-                if self.conversation_model.score[self.conversation_model.length-1] >= 0.7:
+                if self.conversation_model.score[self.conversation_model.length-1] >= 70:
                     text_output = self.conversation_model.getConver()
                 else:
                     text_output = self.eventHomeProcessingLLM(text)
