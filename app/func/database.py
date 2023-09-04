@@ -50,7 +50,4 @@ def userAuthenticationNonePass(account,email):
 
 def userSender(information):
     return
-
-if __name__ =="__main__":
-    connectMongoEmbedded
     
