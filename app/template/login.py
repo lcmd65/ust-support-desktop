@@ -28,7 +28,7 @@ class LoginUIQT(QWidget):
         self.setObjectStyleCSS()
         
     def setExternalVal(self):
-        app.view.var.background_view = QPixmap('app/images/background_login.png').scaled(810, 801, Qt.AspectRatioMode.KeepAspectRatioByExpanding, Qt.TransformationMode.SmoothTransformation) ##4213 × 4167
+        #app.view.var.background_view = QPixmap('app/images/background_login.png').scaled(810, 801, Qt.AspectRatioMode.KeepAspectRatioByExpanding, Qt.TransformationMode.SmoothTransformation) ##4213 × 4167
         app.view.var.logo_view = QPixmap('app/images/color_logo.png').scaled(120, 75, Qt.AspectRatioMode.KeepAspectRatioByExpanding, Qt.TransformationMode.SmoothTransformation)
         
     def setStyle(self, object, css_path):
@@ -62,7 +62,7 @@ class LoginUIQT(QWidget):
         self.main_layout = QVBoxLayout()
 
         self.label_background = QLabel()
-        self.label_background.setPixmap(app.view.var.background_view)
+        #self.label_background.setPixmap(app.view.var.background_view)
         self.label_background.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
         self.label_privacy = QLabel("Privacy @2023")
@@ -139,6 +139,7 @@ class LoginUIQT(QWidget):
         self.setStyle(self.box, "app/template/css/login/qgroupbox.css")
         self.setStyle(self.layout_login, "app/template/css/login/qframe.css")
         self.setStyle(self.button_login, "app/template/css/login/button.css")
+        self.setStyle(self.label_background, "app/template/css/login/label.css")
         
 
         
