@@ -11,11 +11,9 @@ class Dataset():
         self.output = output         
     
     def display(self):
-        print(self._text,\
-        self._token,\
-        self._annotations,\
-        self._roll)
-
+        print(self.instruction,\
+        self.input,\
+        self.output)
 def readEmbeddedDatabase():
     database = []
     with open("app/embedded/promp.json", "r+") as file:
@@ -40,8 +38,8 @@ class Conver():
         Max_score = 0
         Max_score = fuzz.ratio(self.user_[index], database_embedded[0].instruction)
         for item in database_embedded:
-            if fuzz.fuzz(self.user_[index], item.instruction) >= Max_score:
-                self.bot_[index] = item
+            if fuzz.ratio(self.user_[index], item.instruction) >= Max_score:
+                self.bot_[index] = item.output
                 Max_score = fuzz.ratio(self.user_[index], item.instruction)
         self.score[index] = Max_score
     
