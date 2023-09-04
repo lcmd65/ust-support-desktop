@@ -13,6 +13,10 @@ def connectMongoEmbedded():
     try:
         client.admin.command('ping')
         print("Pinged your deployment. You successfully connected to MongoDB!")
+        db = client["Nohcel_Dataset"]
+        collection = db["embedded_dataset"]
+        documents = collection.find()
+        return documents
     except Exception as e:
         print(e)
 

@@ -1,8 +1,9 @@
 import nltk 
-from fuzzywuzzy import fuzz
 import re
 import json
+from fuzzywuzzy import fuzz
 from app.func.func import audioToText
+from app.func.database import connectMongoEmbedded
 
 class Dataset():
     def __init__(self, instruction, input, output):
@@ -25,6 +26,17 @@ def readEmbeddedDatabase():
                 item["output"])
             database.append(item_data)
     return database
+
+def readMongoEmbeddedDatabase():
+    data = connectMongoEmbedded()
+    database = []
+    for item in data: 
+            item_data = Dataset(\
+                item["instruction"],
+                item["input"],
+                item["output"])
+            database.append(item_data)
+    return database
         
 class Conver():
     def __init__(self):
@@ -34,7 +46,7 @@ class Conver():
     def processingUserText(self, index):
         self.bot_.append(None)
         self.score.append(None)
-        database_embedded = readEmbeddedDatabase()
+        database_embedded = readMongoEmbeddedDatabase()
         Max_score = 0
         Max_score = fuzz.ratio(self.user_[index], database_embedded[0].instruction)
         for item in database_embedded:
