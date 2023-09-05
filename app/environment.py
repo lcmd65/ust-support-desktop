@@ -12,3 +12,5 @@ file = None
 
 client = None 
 user = None
+
+User_info = None

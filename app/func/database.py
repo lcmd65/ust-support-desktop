@@ -2,8 +2,11 @@ import pymssql
 import pandas as pd
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+from app.model.user import User
 import app.environment 
 import os
+import base64
+import io
 import requests
 import mysql.connector
 import time
@@ -38,10 +41,11 @@ def connectMongoEmbedded():
         print(e)
 
 def connectUserRequest():
+    getClient()
     try:
         app.environment.client.admin.command('ping')
-        section_database = app.environment.client["User_Request"]
-        collection_section = section_database["Requests"]
+        section_database = app.environment.client["User"]
+        collection_section = section_database["Request"]
         requests = collection_section.find()
         return requests
     except Exception as e:
@@ -72,6 +76,7 @@ def createTableUser():
 def createTableUserImage():
     connectServer()
     cnx = app.environment.user.cursor()
+    cnx.execute("DROP TABLE `User_Image`")
     cnx.execute(\
         "CREATE TABLE `User_Image` ("
         "   `id` int NOT NULL,"
@@ -96,6 +101,8 @@ def addIMage():
     cnx = app.environment.user.cursor()
     cnx.execute("""INSERT INTO User_Image(id, image) VALUES(21280064, LOAD_FILE("/Users/lechonminhdat/Downloads/citations.png"))""")
     
+
+    
 def userAuthentication(account, password):
     """ task """
     if (account == "dat.lemindast" and password == "1"):
@@ -112,6 +119,50 @@ def userAuthentication(account, password):
         time.sleep(5)
         return False
 
+def userParsing(account,password):
+    connectServer()
+    cnx = app.environment.user.cursor()
+    cnx.execute("""SELECT * FROM User; """)
+    rows = cnx.fetchall()
+    for row in rows:
+        if row[1] == account and row[3] == password:
+            app.environment.User_info = User(row[1],row[3],row[2], row[0])
+    
+
+def connectUserImage(id):
+    connectServer()
+    cnx = app.environment.user.cursor()
+    cnx.execute("""SELECT * FROM User_Image; """)
+    rows = cnx.fetchall()
+    for row in rows:
+        if row[0] == id:
+            return row[1]
+        
+def addiamge():
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        database="User_Nohcel"  # Name of the database
+    )
+ 
+    # Create a cursor object
+    cursor = mydb.cursor()
+    
+    # Open a file in binary mode
+    file = open('app/images/citations.png','rb').read()
+    
+    # We must encode the file to get base64 string
+    file = base64.b64encode(file)
+    
+    # Sample data to be inserted
+    args = (21280064, file)
+    
+    # Prepare a query
+    query = 'INSERT INTO User_Image VALUES(%s, %s)'
+    
+    # Execute the query and commit the database.
+    cursor.execute(query,args)
+    mydb.commit()
 
 def userAuthenticationNonePass(account,email):
     """ task """
@@ -120,7 +171,8 @@ def userAuthenticationNonePass(account,email):
 def userSender(information):
     return
 
+
 if __name__ == "__main__":
-    addUser()
-    addIMage()
+    createTableUserImage()
+    addiamge()
     

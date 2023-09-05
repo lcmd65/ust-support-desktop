@@ -1,5 +1,6 @@
 import app.environment
 import app.view.var
+import app.func.database
 from app.view.view import homeViewQT
 from app.template.home import HomeQT
 from PyQt6.QtWidgets import *
@@ -38,6 +39,7 @@ class LoginUIQT(QWidget):
     
     def eventButtonClickedLoginClick(self, account, password):
         if userAuthentication(account.text(), password.text()) == True:
+            app.func.database.userParsing(account.text(), password.text())
             app.environment.thread = QThread()
             self.home = HomeQT()
             self.home.show()

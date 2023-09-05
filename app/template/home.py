@@ -8,8 +8,12 @@ import threading
 import app.view.var
 import app.environment
 import gc
+import io
+import base64
 import app.func.func
 import app.func.database
+import PIL.Image as Image
+from PIL.ImageQt import ImageQt
 from functools import partial
 from app.func.func import audioMicroToText, speakTextThread
 from PyQt6.QtWidgets import (
@@ -80,6 +84,7 @@ class HomeQT(QMainWindow):
         self.createMenuBar()
         self.eventSetExternalVal()
         self.conversation = QStandardItemModel()
+        self.requests_user = QStandardItemModel()
         self.conversation_shot = []
         self.conversation_model = Conver()
         
@@ -273,13 +278,44 @@ class HomeQT(QMainWindow):
         self.tabs.setTabShape(QTabWidget.TabShape.Rounded)
         self.tabs.setMovable(True)
         
+        """ tab 0 """
+        
         self.hcmus_request = QWidget()
         self.hcmus_request_layout = QVBoxLayout()
         self.hcmus_request_main_layout = QHBoxLayout()
+        self.hcmus_request.setLayout(self.hcmus_request_layout)
         
         self.hcmus_request_user = QLabel()
+        self.hcmus_request_user.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+        self.hcmus_request_user_avatar = QLabel()
+        self.hcmus_request_user_avatar.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.hcmus_request_user_name = QLabel()
+        self.hcmus_request_user_name.setAlignment(Qt.AlignmentFlag.AlignLeft)
+        
+        image =  ImageQt(Image.open(io.BytesIO(base64.b64decode(app.environment.User_info.image))))
+        self.label_user_image = QPixmap.fromImage(image).scaled(80, 80)
+        self.hcmus_request_user_name.setText(app.environment.User_info.username)
+        self.hcmus_request_user_avatar.setPixmap(self.label_user_image)
+        
+        self.hcmus_request_user_layout = QHBoxLayout()
+        self.hcmus_request_user.setLayout(self.hcmus_request_user_layout)
+        self.hcmus_request_user_layout.addWidget(self.hcmus_request_user_avatar)
+        self.hcmus_request_user_layout.addWidget(self.hcmus_request_user_name)
+        
+        
         self.hcmus_request_layout.addWidget(self.hcmus_request_user)
         self.hcmus_request_layout.addLayout(self.hcmus_request_main_layout)
+        
+        self.hcmus_request_tree = QTreeView()
+        self.hcmus_request_tree.setMinimumWidth(150)
+        self.hcmus_request_tree.setMaximumWidth(250)
+        self.hcmus_request_tree.setUpdatesEnabled(True)
+        self.hcmus_request_tree.setModel(self.requests_user)
+        self.hcmus_request_main_layout.addWidget(self.hcmus_request_tree)
+        
+        
+        self.hcmus_request_frame = QFrame()
+        self.hcmus_request_main_layout.addWidget(self.hcmus_request_frame)
         
         """ tab1 """
         self.nohcel = QWidget()
@@ -375,10 +411,16 @@ class HomeQT(QMainWindow):
     def setObjectStyleCSS(self):
         self.setStyleSheet("background-color: #ececec")
         self.setStyle(self.tabs, "app/template/css/home/tab.css")
+        
+        self.setStyle(self.hcmus_request_user, "app/template/css/home/tab1/label_user.css")
+        self.setStyle(self.hcmus_request_user_avatar, "app/template/css/home/tab1/label_avatar.css")
+        self.setStyle(self.hcmus_request_user_name, "app/template/css/home/tab1/label_username.css")
+        
         self.setStyle(self.data_view, "app/template/css/home/tab2/tree.css")
         self.setStyle(self.nohcel_frame, "app/template/css/home/tab2/frame.css")
         self.setStyle(self.nohcel_conversation_view, "app/template/css/home/tab2/qlabel_conv.css")
         self.setStyle(self.nohcel_conversation_entry, "app/template/css/home/tab2/qline_conv.css")
+        
         self.setStyle(self.temp_data_view, 'app/template/css/home/tab3/qframe.css')
         self.setStyle(self.button_record, "app/template/css/home/tab3/button.css")
         self.setStyle(self.label_view,  "app/template/css/home/tab3/label.css")
