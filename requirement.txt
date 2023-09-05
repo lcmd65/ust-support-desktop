@@ -11,3 +11,5 @@ pymssql==2.2.7
 pymongo==3.12
 pandas==2.1.0
 fuzzywuzzy==0.18.0
+mysql==0.0.3 
+mysqlclient==2.2.0

@@ -9,6 +9,7 @@ import app.view.var
 import app.environment
 import gc
 import app.func.func
+import app.func.database
 from functools import partial
 from app.func.func import audioMicroToText, speakTextThread
 from PyQt6.QtWidgets import (
@@ -94,6 +95,8 @@ class HomeQT(QMainWindow):
         # ui
         self.initUI()
         self.setObjectStyleCSS()
+        app.func.database.getClient()
+        app.func.database.connectServer()
     
     def closeEvent(self, event):
         if event.type() == QEvent.Type.Close:

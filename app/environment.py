@@ -8,3 +8,7 @@ thread2 = None
 # env object
 worker = None
 file = None 
+
+
+client = None 
+user = None
