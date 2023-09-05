@@ -75,7 +75,7 @@ class HomeQT(QMainWindow):
         # parent & event 
         self.setWindowTitle("HCMUS Assistant")
         self.setWindowModality(Qt.WindowModality.ApplicationModal)
-        self.resize(1980, 1080)
+        self.resize(1400, 1080)
         self.eventCreateAction()
         self.createMenuBar()
         self.eventSetExternalVal()
@@ -118,7 +118,7 @@ class HomeQT(QMainWindow):
             if qKeyEvent.key() == 16777220 or (qKeyEvent.key() == 43):
                 text = self.nohcel_conversation_entry.text()
                 self.conversation_model.addConver(text)
-                if self.conversation_model.score[self.conversation_model.length-1] >= 70:
+                if self.conversation_model.score[self.conversation_model.length-1] >= 60:
                     text_output = self.conversation_model.getConver()
                 else:
                     text_output = self.eventHomeProcessingLLM(text)
@@ -132,13 +132,13 @@ class HomeQT(QMainWindow):
         self.nohcel_conversation_view_layout.addWidget(self.conversation_shot[index][0])
         self.conversation_shot[index][0].setText(text)
         self.conversation_shot[index][0].setWordWrap(True)
-        self.setStyle(self.conversation_shot[index][0], "app/template/css/home/conversation/label_user.css")
+        self.setStyle(self.conversation_shot[index][0], "app/template/css/home/tab2/conversation/label_user.css")
         
         self.conversation_shot[index][1] = QLabel()
         self.nohcel_conversation_view_layout.addWidget(self.conversation_shot[index][1])
         self.conversation_shot[index][1].setText(text_output)
         self.conversation_shot[index][1].setWordWrap(True)
-        self.setStyle(self.conversation_shot[index][1], "app/template/css/home/conversation/label.css")
+        self.setStyle(self.conversation_shot[index][1], "app/template/css/home/tab2/conversation/label.css")
         
     # external variable background and icon init
     def eventSetExternalVal(self):
@@ -273,6 +273,14 @@ class HomeQT(QMainWindow):
         self.tabs.setTabShape(QTabWidget.TabShape.Rounded)
         self.tabs.setMovable(True)
         
+        self.hcmus_request = QWidget()
+        self.hcmus_request_layout = QVBoxLayout()
+        self.hcmus_request_main_layout = QHBoxLayout()
+        
+        self.hcmus_request_user = QLabel()
+        self.hcmus_request_layout.addWidget(self.hcmus_request_user)
+        self.hcmus_request_layout.addLayout(self.hcmus_request_main_layout)
+        
         """ tab1 """
         self.nohcel = QWidget()
         self.nohcel_layout = QVBoxLayout()
@@ -282,7 +290,7 @@ class HomeQT(QMainWindow):
         self.audio_record = QWidget()
         self.audio_layout = QHBoxLayout()
         
-        for tab,  name in zip([self.nohcel, self.audio_record], ["NOHCEL", "Speech to Text"]):
+        for tab,  name in zip([self.hcmus_request, self.nohcel, self.audio_record], ["HCMUS Chat" ,"NOHCEL BOT", "Speech to Text"]):
             self.tabs.addTab(tab, name)
 
         self.data_view = QTreeView()
@@ -367,16 +375,16 @@ class HomeQT(QMainWindow):
     def setObjectStyleCSS(self):
         self.setStyleSheet("background-color: #ececec")
         self.setStyle(self.tabs, "app/template/css/home/tab.css")
-        self.setStyle(self.data_view, "app/template/css/home/tree.css")
-        self.setStyle(self.nohcel_frame, "app/template/css/home/frame.css")
-        self.setStyle(self.nohcel_conversation_view, "app/template/css/home/qlabel_conv.css")
-        self.setStyle(self.nohcel_conversation_entry, "app/template/css/home/qline_conv.css")
-        self.setStyle(self.temp_data_view, 'app/template/css/home/temp/qframe.css')
-        self.setStyle(self.button_record, "app/template/css/home/temp/button.css")
-        self.setStyle(self.label_view,  "app/template/css/home/temp/label.css")
-        self.setStyle(self.label_input,  "app/template/css/home/temp/label.css")
-        self.setStyle(self.label_temp_input_frame, 'app/template/css/home/temp/qframe.css')
-        self.setStyle(self.label_temp_frame, 'app/template/css/home/temp/qframe.css')
+        self.setStyle(self.data_view, "app/template/css/home/tab2/tree.css")
+        self.setStyle(self.nohcel_frame, "app/template/css/home/tab2/frame.css")
+        self.setStyle(self.nohcel_conversation_view, "app/template/css/home/tab2/qlabel_conv.css")
+        self.setStyle(self.nohcel_conversation_entry, "app/template/css/home/tab2/qline_conv.css")
+        self.setStyle(self.temp_data_view, 'app/template/css/home/tab3/qframe.css')
+        self.setStyle(self.button_record, "app/template/css/home/tab3/button.css")
+        self.setStyle(self.label_view,  "app/template/css/home/tab3/label.css")
+        self.setStyle(self.label_input,  "app/template/css/home/tab3/label.css")
+        self.setStyle(self.label_temp_input_frame, 'app/template/css/home/tab3/qframe.css')
+        self.setStyle(self.label_temp_frame, 'app/template/css/home/tab3/qframe.css')
 
 def main():
     app.environment.application = QApplication([])

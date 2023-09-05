@@ -6,6 +6,7 @@ import app.environment
 import os
 import requests
 import mysql.connector
+import time
 
 uri = "mongodb+srv://datlemindast:Minhdat060501@cluster0.ixcliyp.mongodb.net/?retryWrites=true&w=majority"
 
@@ -29,7 +30,6 @@ def connectMongoEmbedded():
     # Send a ping to confirm a successful connection
     try:
         app.environment.client.admin.command('ping')
-        print("Pinged your deployment. You successfully connected")
         db = app.environment.client["Nohcel_Dataset"]
         collection = db["embedded_dataset"]
         documents = collection.find()
@@ -52,7 +52,7 @@ def connectServer():
     app.environment.user = mysql.connector.connect(
         host= "localhost",
         user= "root",
-        database = "User"
+        database = "User_Nohcel"
     )
     
 def createTableUser():
@@ -83,30 +83,35 @@ def createTableUserImage():
 def addUser():
     connectServer()
     cnx = app.environment.user.cursor()
-    cnx.execute("""INSERT INTO User(id, username, email, password, gender) VALUES (21280064, "dat.lemindast", "dat.lemindast@gmail.com", "123456", "M")""")
+    value = (21280064, "dat.lemindast", "dat.lemindast@gmail.com", "123456", "M")
+    cnx.execute("""INSERT INTO User(id, username, email, password, gender) VALUES (%s, %s, %s, %s,%s)""", value)
+
+def insert_image(cnx, id, image_path):
+    sql = """INSERT INTO User_Image(id, image) VALUES(21280064, LOAD_FILE("""+image_path+"""))"""
+    cnx.execute(sql)
+
 
 def addIMage():
     connectServer()
     cnx = app.environment.user.cursor()
-    cnx.execute("""INSERT INTO User_Image(id, image) VALUES(21280064,'/Users/lechonminhdat/Downloads/citations.png');""")
+    cnx.execute("""INSERT INTO User_Image(id, image) VALUES(21280064, LOAD_FILE("/Users/lechonminhdat/Downloads/citations.png"))""")
     
 def userAuthentication(account, password):
     """ task """
     if (account == "dat.lemindast" and password == "1"):
         return True
     else:
-        try:
-            connectServer()
-            cnx = app.environment.user.cursor()
-            cnx.excute("""
-                    SELECT * FROM User
-                    """)
-            for row in cnx:
-                if row["username"] == account and row["password"] == password:
-                    return True
-            return False
-        except:
-            return False
+        connectServer()
+        cnx = app.environment.user.cursor()
+        cnx.execute("""SELECT * FROM User; """)
+        rows = cnx.fetchall()
+        print(rows)
+        for row in rows:
+            if row[1] == account and row[3] == password:
+                return True
+        time.sleep(5)
+        return False
+
 
 def userAuthenticationNonePass(account,email):
     """ task """
@@ -114,3 +119,8 @@ def userAuthenticationNonePass(account,email):
 
 def userSender(information):
     return
+
+if __name__ == "__main__":
+    addUser()
+    addIMage()
+    
