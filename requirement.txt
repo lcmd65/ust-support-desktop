@@ -11,5 +11,6 @@ pandas==2.1.0
 fuzzywuzzy==0.18.0
 mysql==0.0.3 
 mysqlclient==2.2.0
-mysql-connector-python-8.1.0
-protobuf-4.21.12
+mysql-connector-python==8.1.0
+protobuf==4.21.12
+pillow==10.0.0
