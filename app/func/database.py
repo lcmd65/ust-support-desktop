@@ -68,12 +68,23 @@ def connectUserRequest():
 
 
 def connectServer():
-    app.environment.user = mysql.connector.connect(
-        host= "localhost",
-        user= "root",
-        database = "User_Nohcel"
-    )
-    
+    try:
+        try:
+            app.environment.user = mysql.connector.connect(
+                host= "localhost",
+                user= "root",
+                database = "User_Nohcel"
+            )
+        except:
+            app.environment.user = mysql.connector.connect(
+                host= "localhost",
+                user= "root",
+                password= "123456",
+                database = "User_Nohcel"
+            )
+    except:
+        pass
+        
 def createTableUser():
     connectServer()
     cnx = app.environment.user.cursor()
@@ -116,42 +127,78 @@ def addIMage():
     cnx = app.environment.user.cursor()
     cnx.execute("""INSERT INTO User_Image(id, image) VALUES(21280064, LOAD_FILE("/Users/lechonminhdat/Downloads/citations.png"))""")
     
-
+def userAuthentication2(account, password):
+    app.environment.client = MongoClient(uri, server_api=ServerApi('1'))
+    addIPtoMongodbAtlas(getIPAddress())
+    # Send a ping to confirm a successful connection
+    app.environment.client.admin.command('ping')
+    db = app.environment.client["User"]
+    collection = db["User"]
+    documents = collection.find()
+    for item in documents:
+        if item["username"] == account and item["password"] == password:
+            return True
+    return False
     
 def userAuthentication(account, password):
     """ task """
-    if (account == "dat.lemindast" and password == "1"):
+    if (account == "admin" and password == "1"):
         return True
     else:
+        try:
+            connectServer()
+            cnx = app.environment.user.cursor()
+            cnx.execute("""SELECT * FROM User; """)
+            rows = cnx.fetchall()
+            print(rows)
+            for row in rows:
+                if row[1] == account and row[3] == password:
+                    return True
+            time.sleep(5)
+        except:
+            bool = userAuthentication2(account, password)
+            if bool == 1 : 
+                return True
+            else :
+                return False
+    
+
+def userParsing(account,password):
+    try:
         connectServer()
         cnx = app.environment.user.cursor()
         cnx.execute("""SELECT * FROM User; """)
         rows = cnx.fetchall()
-        print(rows)
         for row in rows:
             if row[1] == account and row[3] == password:
-                return True
-        time.sleep(5)
-        return False
-
-def userParsing(account,password):
-    connectServer()
-    cnx = app.environment.user.cursor()
-    cnx.execute("""SELECT * FROM User; """)
-    rows = cnx.fetchall()
-    for row in rows:
-        if row[1] == account and row[3] == password:
-            app.environment.User_info = User(row[1],row[3],row[2], row[0])
+                app.environment.User_info = User(row[1],row[3],row[2], row[0])
+    except:
+        db = app.environment.client["User"]
+        collection = db["User"]
+        documents = collection.find()
+        for item in documents:
+            if item["username"] == account and item["password"] == password:
+                app.environment.User_info = User(item["username"],item["password"], item["email"], item["_id"])
+        
     
 
 def connectUserImage(id):
-    connectServer()
-    cnx = app.environment.user.cursor()
-    cnx.execute("""SELECT * FROM User_Image; """)
-    rows = cnx.fetchall()
-    for row in rows:
-        if row[0] == id:
-            return row[1]
+    try:
+        connectServer()
+        cnx = app.environment.user.cursor()
+        cnx.execute("""SELECT * FROM User_Image; """)
+        rows = cnx.fetchall()
+        for row in rows:
+            if row[0] == id:
+                return row[1]
+    except:
+        db = app.environment.client["User"]
+        collection = db["Image"]
+        documents = collection.find()
+        for item in documents:
+            if item["id"] == id:
+                return item["image"]
+        
         
 def addiamge():
     mydb = mysql.connector.connect(
@@ -159,36 +206,35 @@ def addiamge():
         user="root",
         database="User_Nohcel"  # Name of the database
     )
- 
-    # Create a cursor object
     cursor = mydb.cursor()
-    
-    # Open a file in binary mode
     file = open('app/images/citations.png','rb').read()
-    
-    # We must encode the file to get base64 string
     file = base64.b64encode(file)
-    
-    # Sample data to be inserted
     args = (21280064, file)
-    
-    # Prepare a query
     query = 'INSERT INTO User_Image VALUES(%s, %s)'
     
     # Execute the query and commit the database.
     cursor.execute(query,args)
     mydb.commit()
 
-def userAuthenticationNonePass(account,email):
-    """ task """
-    return 
 
-def userSender(information):
-    return
+def addimage1():
+    # Connect to the MongoDB database.
+    app.environment.client = MongoClient(uri, server_api=ServerApi('1'))
+    addIPtoMongodbAtlas(getIPAddress())
+    db = app.environment.client["User"]
+    collection = db["Image"]
 
+    # Open the file and read the image data.
+    file = open("app/images/citations.png", "rb").read()
+    file = base64.b64encode(file)
 
+    # The image data is the second argument to the `insert_one()` method.
+    collection.insert_one(
+        {
+            "id": 21280064,
+            "image": file
+        })
 
 if __name__ == "__main__":
-    createTableUserImage()
-    addiamge()
+    addimage1()
     

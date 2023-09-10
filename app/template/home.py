@@ -237,7 +237,10 @@ class HomeQT(QMainWindow):
     def eventButtonClickedAudioRecordQThread(self):
         app.environment.thread.start()
         app.environment.worker.task()
-        app.environment.thread.exec()
+        try:
+            app.environment.thread.exec()
+        except:
+            app.environment.thread.exec_()
         
     def eventCreateAction(self):
         self.file_action = QAction("&File Open", self, triggered = self.eventButtonClickedFile)
@@ -360,12 +363,17 @@ class HomeQT(QMainWindow):
         self.hcmus_request_user_avatar.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.hcmus_request_user_name = QLabel()
         self.hcmus_request_user_name.setAlignment(Qt.AlignmentFlag.AlignLeft)
-        
-        image =  ImageQt(Image.open(io.BytesIO(base64.b64decode(app.environment.User_info.image))))
-        self.label_user_image = QPixmap.fromImage(image).scaled(80, 80, Qt.AspectRatioMode.KeepAspectRatioByExpanding,\
-            Qt.TransformationMode.SmoothTransformation)
+        try:
+            image =  ImageQt(Image.open(io.BytesIO(base64.b64decode(app.environment.User_info.image))))
+            self.label_user_image = QPixmap.fromImage(image).scaled(80, 80, Qt.AspectRatioMode.KeepAspectRatioByExpanding,\
+                Qt.TransformationMode.SmoothTransformation)
+        except:
+            pass
         self.hcmus_request_user_name.setText(app.environment.User_info.username)
-        self.hcmus_request_user_avatar.setPixmap(self.label_user_image)
+        try:
+            self.hcmus_request_user_avatar.setPixmap(self.label_user_image)
+        except:
+            pass
         
         self.button_setting = QPushButton()
         self.setIconButton(self.button_setting, "app/images/icons/settings.png", 30)
@@ -430,6 +438,7 @@ class HomeQT(QMainWindow):
         # Tab 1
         self.nohcel = QWidget()
         self.nohcel_layout = QVBoxLayout()
+        self.nohcel.setLayout(self.nohcel_layout)
         self.nohcel_main_layout = QHBoxLayout()
         self.nohcel_layout.addLayout(self.nohcel_main_layout)
 
@@ -511,11 +520,13 @@ class HomeQT(QMainWindow):
         self.audio_temp_frame_layout.addWidget(self.button_record)
         self.audio_temp_frame_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
-        self.nohcel_layout.addWidget(self.menu_bar)
-        self.nohcel_layout.addWidget(self.label_privacy)
-        self.audio_layout.addWidget(self.label_privacy)
-        self.nohcel.setLayout(self.nohcel_layout)
-        self.setCentralWidget(self.tabs)
+        self.frame_home = QWidget()
+        self.layout_home = QVBoxLayout()
+        self.frame_home.setLayout(self.layout_home)
+        self.layout_home.addWidget(self.menu_bar)
+        self.layout_home.addWidget(self.tabs)
+        self.layout_home.addWidget(self.label_privacy)
+        self.setCentralWidget(self.frame_home)
     
     # style css setting for all object of home page
     def setObjectStyleCSS(self):
