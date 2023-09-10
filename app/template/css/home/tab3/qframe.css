@@ -1,0 +1,13 @@
+QFrame {
+    border-radius: 8px;
+    background-color: #ffffff;
+    margin-left: 5px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    border-width: 1px;
+}
+
+QFrame#label {
+    max-height: 80px;
+    border: 0px;
+}
