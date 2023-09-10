@@ -40,5 +40,5 @@
 <h3> Model </h3>
 
  - Rule-based embedded case (fuzzy match)
- - Langchain Open AI Key GPT 3.5
+ - Falcon 180b
 
