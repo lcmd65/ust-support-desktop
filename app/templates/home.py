@@ -143,13 +143,13 @@ class HomeQT(QMainWindow):
         self.nohcel_conversation_view_layout.addWidget(self.conversation_shot[index][0])
         self.conversation_shot[index][0].setText(text)
         self.conversation_shot[index][0].setWordWrap(True)
-        self.setStyle(self.conversation_shot[index][0], "app/template/css/home/tab2/conversation/label_user.css")
+        self.setStyle(self.conversation_shot[index][0], "app/static/css/home/tab2/conversation/label_user.css")
         
         self.conversation_shot[index][1] = QLabel()
         self.nohcel_conversation_view_layout.addWidget(self.conversation_shot[index][1])
         self.conversation_shot[index][1].setText(text_output)
         self.conversation_shot[index][1].setWordWrap(True)
-        self.setStyle(self.conversation_shot[index][1], "app/template/css/home/tab2/conversation/label.css")
+        self.setStyle(self.conversation_shot[index][1], "app/static/css/home/tab2/conversation/label.css")
         
     # external variable background and icon init
     def eventSetExternalVal(self):
@@ -181,7 +181,7 @@ class HomeQT(QMainWindow):
     
     def eventButtonClickedEdit(self):
         try:     
-            from app.template.edit import EditQT
+            from app.templates.edit import EditQT
             self.edit_toplevel = EditQT()
             self.edit_toplevel.show()
         except Exception as e:
@@ -193,7 +193,7 @@ class HomeQT(QMainWindow):
 
     def eventButtonClickedHelp(self):
         try:
-            from app.template.help import HelpQT
+            from app.templates.help import HelpQT
             self.help_toplevel = HelpQT()
             self.help_toplevel.show()
         except Exception as e:
@@ -201,7 +201,7 @@ class HomeQT(QMainWindow):
         
     def eventButtonClickedFile(self):
         try:
-            from app.template.file import FileQT
+            from app.templates.file import FileQT
             self.file_toplevel = FileQT()
             self.file_toplevel.show()
         except Exception as e:
@@ -251,7 +251,7 @@ class HomeQT(QMainWindow):
     def createLayoutLoginBox(self):
         # circle import for run login view again from home view
         try:
-            from app.template.login import LoginUIQT
+            from app.templates.login import LoginUIQT
             self.login_toplevel = LoginUIQT()
             self.login_toplevel.show()
             self.close()    
@@ -287,8 +287,8 @@ class HomeQT(QMainWindow):
         label_respone.setText("".join(["Respone :", self.dashboard["respone"]]))
         label_respone.setWordWrap(True)
         
-        self.setStyle(label_request, "app/template/css/home/tab1/label_request.css")
-        self.setStyle(label_respone, "app/template/css/home/tab1/label_request.css")
+        self.setStyle(label_request, "app/static/css/home/tab1/label_request.css")
+        self.setStyle(label_respone, "app/static/css/home/tab1/label_request.css")
         self.hcmus_request_frame_layout.addWidget(subject)
         self.hcmus_request_frame_layout.addWidget(label_request)
         self.hcmus_request_frame_layout.addWidget(label_respone)
@@ -328,8 +328,8 @@ class HomeQT(QMainWindow):
             line_request.setPlaceholderText("Nhập Câu hỏi tại đây")
             self.button_request_init = QPushButton("Ok")
             self.button_request_init.clicked.connect(partial(self.initRequest,line_subject, line_request))
-            self.setStyle(line_request, "app/template/css/home/tab1/line_init_request.css")
-            self.setStyle(line_subject, "app/template/css/home/tab1/line_init_subject.css")
+            self.setStyle(line_request, "app/static/css/home/tab1/line_init_request.css")
+            self.setStyle(line_subject, "app/static/css/home/tab1/line_init_subject.css")
             self.hcmus_request_frame_layout.addWidget(line_subject)
             self.hcmus_request_frame_layout.addWidget(line_request)
             self.hcmus_frame_layout.addWidget(self.button_request_init)
@@ -531,25 +531,25 @@ class HomeQT(QMainWindow):
     # style css setting for all object of home page
     def setObjectStyleCSS(self):
         self.setStyleSheet("background-color: #ececec")
-        self.setStyle(self.tabs, "app/template/css/home/tab.css")
+        self.setStyle(self.tabs, "app/static/css/home/tab.css")
         
-        self.setStyle(self.hcmus_request_user, "app/template/css/home/tab1/label_user.css")
-        self.setStyle(self.hcmus_request_user_avatar, "app/template/css/home/tab1/label_avatar.css")
-        self.setStyle(self.hcmus_request_user_name, "app/template/css/home/tab1/label_username.css")
-        self.setStyle(self.button_setting, "app/template/css/home/tab1/setting_button.css")
-        self.setStyle(self.hcmus_request_tree, "app/template/css/home/tab1/tree.css")
-        self.setStyle(self.init_request_button, "app/template/css/home/tab1/label_init_request.css")
+        self.setStyle(self.hcmus_request_user, "app/static/css/home/tab1/label_user.css")
+        self.setStyle(self.hcmus_request_user_avatar, "app/static/css/home/tab1/label_avatar.css")
+        self.setStyle(self.hcmus_request_user_name, "app/static/css/home/tab1/label_username.css")
+        self.setStyle(self.button_setting, "app/static/css/home/tab1/setting_button.css")
+        self.setStyle(self.hcmus_request_tree, "app/static/css/home/tab1/tree.css")
+        self.setStyle(self.init_request_button, "app/static/css/home/tab1/label_init_request.css")
         
-        self.setStyle(self.data_view, "app/template/css/home/tab2/tree.css")
-        self.setStyle(self.nohcel_frame, "app/template/css/home/tab2/frame.css")
-        self.setStyle(self.nohcel_conversation_view, "app/template/css/home/tab2/qlabel_conv.css")
-        self.setStyle(self.nohcel_conversation_entry, "app/template/css/home/tab2/qline_conv.css")
+        self.setStyle(self.data_view, "app/static/css/home/tab2/tree.css")
+        self.setStyle(self.nohcel_frame, "app/static/css/home/tab2/frame.css")
+        self.setStyle(self.nohcel_conversation_view, "app/static/css/home/tab2/qlabel_conv.css")
+        self.setStyle(self.nohcel_conversation_entry, "app/static/css/home/tab2/qline_conv.css")
         
-        self.setStyle(self.temp_data_view, 'app/template/css/home/tab3/qframe.css')
-        self.setStyle(self.button_record, "app/template/css/home/tab3/button.css")
-        self.setStyle(self.label_view,  "app/template/css/home/tab3/label.css")
-        self.setStyle(self.label_input,  "app/template/css/home/tab3/label.css")
-        self.setStyle(self.label_temp_input_frame, 'app/template/css/home/tab3/qframe.css')
-        self.setStyle(self.label_temp_frame, 'app/template/css/home/tab3/qframe.css')
+        self.setStyle(self.temp_data_view, 'app/static/css/home/tab3/qframe.css')
+        self.setStyle(self.button_record, "app/static/css/home/tab3/button.css")
+        self.setStyle(self.label_view,  "app/static/css/home/tab3/label.css")
+        self.setStyle(self.label_input,  "app/static/css/home/tab3/label.css")
+        self.setStyle(self.label_temp_input_frame, 'app/static/css/home/tab3/qframe.css')
+        self.setStyle(self.label_temp_frame, 'app/static/css/home/tab3/qframe.css')
 
-# python3 app/template/home.py
+# python3 app/templates/home.py

@@ -3,8 +3,10 @@ import transformers
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-tokenizer = AutoTokenizer.from_pretrained("tiiuae/falcon-180B", token = "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")
-model = AutoModelForCausalLM.from_pretrained("tiiuae/falcon-180B", token = "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")
+token_ = "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"
+token_write = "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"
+tokenizer = AutoTokenizer.from_pretrained("tiiuae/falcon-180B", token = token_)
+model = AutoModelForCausalLM.from_pretrained("tiiuae/falcon-180B", token = token_)
 
 pipeline = transformers.pipeline(
     "text-generation",

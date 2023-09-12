@@ -2,7 +2,7 @@ import app.environment
 import app.view.var
 import app.func.database
 from app.view.view import homeViewQT
-from app.template.home import HomeQT
+from app.templates.home import HomeQT
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import *
 from PyQt6.QtCore import *
@@ -52,7 +52,7 @@ class LoginUIQT(QWidget):
         self.height = self.frameGeometry().height()
 
     def eventButtonClickedLoginEditClick(self):
-        from app.template.user_info import UserChange
+        from app.templates.user_info import UserChange
         self.edit = UserChange()
         self.edit.show()
         
@@ -136,12 +136,12 @@ class LoginUIQT(QWidget):
         
     def setObjectStyleCSS(self):
         self.setStyleSheet("background-color: #ececec")
-        self.setStyle(self.account, "app/template/css/login/qline.css")
-        self.setStyle(self.password, "app/template/css/login/qline.css")
-        self.setStyle(self.box, "app/template/css/login/qgroupbox.css")
-        self.setStyle(self.layout_login, "app/template/css/login/qframe.css")
-        self.setStyle(self.button_login, "app/template/css/login/button.css")
-        self.setStyle(self.label_background, "app/template/css/login/label.css")
+        self.setStyle(self.account, "app/static/css/login/qline.css")
+        self.setStyle(self.password, "app/static/css/login/qline.css")
+        self.setStyle(self.box, "app/static/css/login/qgroupbox.css")
+        self.setStyle(self.layout_login, "app/static/css/login/qframe.css")
+        self.setStyle(self.button_login, "app/static/css/login/button.css")
+        self.setStyle(self.label_background, "app/static/css/login/label.css")
         
 
         

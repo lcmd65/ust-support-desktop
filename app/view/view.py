@@ -8,12 +8,12 @@ from PyQt6.QtWidgets import (
 import app.environment as env
 
 def homeViewQT():
-    from app.template.home import HomeQT
+    from app.templates.home import HomeQT
     home = HomeQT()
     home.show()
         
 def loginViewQT():
-    from app.template.login import LoginUIQT
+    from app.templates.login import LoginUIQT
     env.app = QApplication(sys.argv)
     login = LoginUIQT()
     login.show()

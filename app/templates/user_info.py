@@ -90,7 +90,7 @@ class UserChange(QMainWindow):
         self.setCentralWidget(self.frame) 
            
     def setStyleObject(self):
-        self.setStyle(self.user, "app/template/css/user_info/line.css")
-        self.setStyle(self.email, "app/template/css/user_info/line.css")
-        self.setStyle(self.phone, "app/template/css/user_info/line.css")
-        self.setStyle(self.frame,"app/template/css/user_info/frame.css" )
+        self.setStyle(self.user, "app/static/css/user_info/line.css")
+        self.setStyle(self.email, "app/static/css/user_info/line.css")
+        self.setStyle(self.phone, "app/static/css/user_info/line.css")
+        self.setStyle(self.frame,"app/static/css/user_info/frame.css" )
