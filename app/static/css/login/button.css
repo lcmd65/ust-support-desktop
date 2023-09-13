@@ -1,0 +1,20 @@
+QPushButton {
+    border-radius: 8px;
+    margin-bottom: 8px;
+    margin-right: 8px;
+    height: 30;
+    border: 1px;
+    color: #fefeff;
+    background-color: #5d7fc7;
+    position: fixed;
+}
+
+QPushButton::placeholder {
+    background-color: #32316d;
+    color: #ffffff;
+}
+
+QPushButton::hover {
+    background-color: #32316d;
+    color: #ffffff;
+}

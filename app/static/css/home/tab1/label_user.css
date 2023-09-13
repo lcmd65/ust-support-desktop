@@ -1,0 +1,8 @@
+QLabel {
+    border-radius: 20px;
+    min-height: 70px;
+    max-height: 70px;
+    margin-top: 0px;
+    position: absolute;
+    background-color: #32316d;
+}
