@@ -10,7 +10,6 @@ import app.environment
 import gc
 import io
 import base64
-import cv2
 import bson
 import app.func.func
 import app.func.database
@@ -131,9 +130,9 @@ class HomeQT(QMainWindow):
             if qKeyEvent.key() == 16777220 or (qKeyEvent.key() == 43):
                 text = self.nohcel_conversation_entry.text()
                 self.conversation_model.addConver(text)
-                if self.conversation_model.score[self.conversation_model.length-1] >= 60:
+                try:
                     text_output = self.conversation_model.getConver()
-                else:
+                except:
                     text_output = self.eventHomeProcessingLLM(text)
                 self.eventInitLabelConversation(text, text_output)
                 
@@ -335,38 +334,7 @@ class HomeQT(QMainWindow):
             self.hcmus_request_frame_layout.addWidget(line_subject)
             self.hcmus_request_frame_layout.addWidget(line_request)
             self.hcmus_frame_layout.addWidget(self.button_request_init)
-
-    def mask_image(self, imgdata, imgtype ='png', size = 50):
-        image = QImage.fromData(imgdata, imgtype)
-        image.convertToFormat(QImage.Format_ARGB32)
-    
-        # Crop image to a square:
-        imgsize = min(image.width(), image.height())
-        rect = QRect(
-            (image.width() - imgsize) / 2,
-            (image.height() - imgsize) / 2,
-            imgsize,
-            imgsize,
-        )
-        image = image.copy(rect)
-        out_img = QImage(imgsize, imgsize, QImage.Format_ARGB32)
-        out_img.fill(Qt.transparent)
-        brush = QBrush(image)
-        painter = QPainter(out_img)
-        painter.setBrush(brush)
-        painter.setPen(Qt.NoPen)
-        painter.drawEllipse(0, 0, imgsize, imgsize)
-        painter.end()
-
-        # Convert the image to a pixmap and rescale it. 
-        pr = QWindow().devicePixelRatio()
-        pm = QPixmap.fromImage(out_img)
-        pm.setDevicePixelRatio(pr)
-        size *= pr
-        pm = pm.scaled(size, size, Qt.KeepAspectRatio, 
-                                Qt.SmoothTransformation)
-        return pm
-
+        
     def circleImage(self, imagePath):
         source = QPixmap(imagePath)
         size = min(source.width(), source.height())
@@ -382,19 +350,6 @@ class HomeQT(QMainWindow):
         qp.drawPixmap(target.rect(), source, sourceRect)
         qp.end()
         return target
-        
-    def fix_image(image):
-                # Convert the image to grayscale
-                gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-                # Find the center of the image
-                (center_x, center_y) = (gray_image.shape[1] // 2, gray_image.shape[0] // 2)
-                # Find the radius of the circle
-                radius = min(center_x, center_y)
-                # Create a circle mask
-                circle_mask = cv2.circle(gray_image, (center_x, center_y), radius, 255, -1)
-                # Apply the circle mask to the original image
-                image = cv2.bitwise_and(image, image, mask=circle_mask)
-                return image
     
     def initUI(self): # Interface component init 
         # Label & Logo
