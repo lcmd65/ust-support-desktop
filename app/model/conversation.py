@@ -73,29 +73,36 @@ class Conver():
         self.bot_.append(None)
         self.score.append(None)
         database_embedded = readMongoEmbeddedDatabase()
+        max_score = 0.8
+        # fuzzy top score phrase
         for item in database_embedded:
-            if fuzz.ratio(self.user_[index], item.instruction) >= 0.8:
-                self.bot_[index] = item.output
-                break
-            elif fuzz.ratio(self.user_[index], item.instruction) >= 0.3:
+            score_fuzz = fuzz.ratio(self.user_[index], item.instruction)
+            if  score_fuzz >= 0.8:
+                if score_fuzz > max_score:
+                    self.bot_[index] = item.output
+                    max_score = score_fuzz
+            elif score_fuzz >= 0.3:
                 string1_embedding = self.model.wv[self.user_[index]]
                 string2_embedding = self.model.wv[item.instruction]
                 similar =  self.model.wv.similarity(string1_embedding, string2_embedding)
                 if similar >= 0.3:
-                    self.output[index].append(item)    
-    
+                    self.output[index].append(item)  
+        self.score[index] = max_score  
+                        
     def questionAnswering(self, question_, context_):
         answer = self.pipeline(question=question_, context=context_)
         return answer
         
     def processingTopScoreList(self, index):
-        max_score = 0
+        # processing Word2vec phrase
+        max_score = self.score[index]
         for item in self.output[index]:
             answer_ = self.questionAnswering(self.user_[index], item.output)
-            if answer_['score'] > max_score:
+            combine_score = answer_['score']*0.75 + fuzz.ratio(self.user_[index], item.output)*0.25
+            if  combine_score >= max_score:
                 self.bot_[index] = answer_['answer']
-                max_score = answer_['score']
-        self.score[index] = (self.score[index]*0.5) + max_score*0.5
+                max_score = combine_score
+        self.score[index] = max_score
     
     def answerGenerate(self, index):
         if self.bot_[index] != None:

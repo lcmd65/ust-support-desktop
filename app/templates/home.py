@@ -131,7 +131,7 @@ class HomeQT(QMainWindow):
             text = self.nohcel_conversation_entry.text()
             self.conversation_model.addConver(text)
             text_output = self.conversation_model.getConver()
-            if text_output == None:
+            if text_output == None or text_output == "":
                 self.conversation_model.processingUserText(self.conversation_model.length- 1)
                 text_output = self.conversation_model.getConverRule()
             self.eventInitLabelConversation(text, text_output)
@@ -339,7 +339,6 @@ class HomeQT(QMainWindow):
         source = QPixmap(imagePath)
         size = min(source.width(), source.height())
         target = QPixmap(size, size)
-        target.fill(QtCore.Qt.transparent)
         qp = QPainter(target)
         qp.setRenderHints(qp.Antialiasing)
         path = QPainterPath()
@@ -387,7 +386,7 @@ class HomeQT(QMainWindow):
             except:
                 try:
                     image = app.environment.User_info.image.decode()
-                    image = fix_image(image)
+                    image = self.circleImage(image)
                     self.label_user_image = QPixmap.fromImage(image).scaled(50, 50, Qt.AspectRatioMode.KeepAspectRatioByExpanding,\
                         Qt.TransformationMode.SmoothTransformation)
                 except Exception as e:
