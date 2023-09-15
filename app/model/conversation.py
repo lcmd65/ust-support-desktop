@@ -63,7 +63,7 @@ class Conver():
         Max_score = 0
         Max_score = fuzz.ratio(self.user_[index], database_embedded[0].instruction)
         for item in database_embedded:
-            if fuzz.ratio(self.user_[index], item.instruction) >= 0.8:
+            if fuzz.ratio(self.user_[index], item.instruction) >= Max_score:
                 self.bot_[index] = item.output
                 Max_score = fuzz.ratio(self.user_[index], item.instruction)
         self.score[index] = Max_score
@@ -77,7 +77,7 @@ class Conver():
             if fuzz.ratio(self.user_[index], item.instruction) >= 0.8:
                 self.bot_[index] = item.output
                 break
-            if fuzz.ratio(self.user_[index], item.instruction) >= 0.3:
+            elif fuzz.ratio(self.user_[index], item.instruction) >= 0.3:
                 string1_embedding = self.model.wv[self.user_[index]]
                 string2_embedding = self.model.wv[item.instruction]
                 similar =  self.model.wv.similarity(string1_embedding, string2_embedding)
@@ -91,7 +91,7 @@ class Conver():
     def processingTopScoreList(self, index):
         max_score = 0
         for item in self.output[index]:
-            answer_ = self.questionAnswering(self.user_[index], item["output"])
+            answer_ = self.questionAnswering(self.user_[index], item.output)
             if answer_['score'] > max_score:
                 self.bot_[index] = answer_['answer']
                 max_score = answer_['score']
@@ -123,7 +123,10 @@ class Conver():
         self.topScoreList(self.length - 1)
         
     def getConver(self):
-        self.answerGenerate(self.length - 1)        
+        return self.answerGenerate(self.length - 1)     
+    
+    def getConverRule(self):
+        return self.bot_[self.length - 1]
 
 
         

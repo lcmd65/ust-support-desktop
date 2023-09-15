@@ -127,15 +127,15 @@ class HomeQT(QMainWindow):
             event.ignore()
     
     def keyPressEvent(self, qKeyEvent):
-            if qKeyEvent.key() == 16777220 or (qKeyEvent.key() == 43):
-                text = self.nohcel_conversation_entry.text()
-                self.conversation_model.addConver(text)
-                try:
-                    text_output = self.conversation_model.getConver()
-                except:
-                    text_output = self.eventHomeProcessingLLM(text)
-                self.eventInitLabelConversation(text, text_output)
-                
+        if qKeyEvent.key() == 16777220 or (qKeyEvent.key() == 43):
+            text = self.nohcel_conversation_entry.text()
+            self.conversation_model.addConver(text)
+            text_output = self.conversation_model.getConver()
+            if text_output == None:
+                self.conversation_model.processingUserText(self.conversation_model.length- 1)
+                text_output = self.conversation_model.getConverRule()
+            self.eventInitLabelConversation(text, text_output)
+    
     def eventInitLabelConversation(self, text, text_output):
         self.conversation_shot.append([None for _ in range (2)])
         index = len(self.conversation_shot)-1
