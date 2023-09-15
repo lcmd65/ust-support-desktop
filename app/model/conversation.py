@@ -5,34 +5,15 @@ import os
 import gensim
 import transformers
 import torch
-from transformers import pipeline, AutoModelForQuestionAnswering, AutoTokenizer
 import json
+from transformers import pipeline, AutoModelForQuestionAnswering, AutoTokenizer
 from fuzzywuzzy import fuzz
 from app.func.func import audioToText
 from app.func.database import connectMongoEmbedded
+import openai
 
-class Dataset():
-    def __init__(self, instruction, input, output):
-        self.instruction = instruction
-        self.input = input
-        self.output = output         
-    
-    def display(self):
-        print(self.instruction,\
-        self.input,\
-        self.output)
-        
-def readEmbeddedDatabase():
-    database = []
-    with open("app/embedded/promp.json", "r+") as file:
-        data = json.load(file)
-        for item in data: 
-            item_data = Dataset(\
-                item["instruction"],
-                item["input"],
-                item["output"])
-            database.append(item_data)
-    return database
+openai.api_key  = ""
+
 
 def readMongoEmbeddedDatabase():
     data = connectMongoEmbedded()
@@ -44,6 +25,17 @@ def readMongoEmbeddedDatabase():
                 item["output"])
             database.append(item_data)
     return database
+
+class Dataset():
+    def __init__(self, instruction, input, output):
+        self.instruction = instruction
+        self.input = input
+        self.output = output         
+    
+    def display(self):
+        print(self.instruction,\
+        self.input,\
+        self.output)
         
 class Conver():
     def __init__(self):
@@ -61,11 +53,11 @@ class Conver():
         self.score.append(None)
         database_embedded = readMongoEmbeddedDatabase()
         Max_score = 0
-        Max_score = fuzz.ratio(self.user_[index], database_embedded[0].instruction)
+        Max_score = fuzz.ratio(self.user_[index], database_embedded[0].instruction)/100
         for item in database_embedded:
-            if fuzz.ratio(self.user_[index], item.instruction) >= Max_score:
+            if fuzz.ratio(self.user_[index], item.instruction)/100 >= Max_score:
                 self.bot_[index] = item.output
-                Max_score = fuzz.ratio(self.user_[index], item.instruction)
+                Max_score = fuzz.ratio(self.user_[index], item.instruction)/100
         self.score[index] = Max_score
     
     def topScoreList(self, index):
@@ -76,15 +68,16 @@ class Conver():
         max_score = 0.8
         # fuzzy top score phrase
         for item in database_embedded:
-            score_fuzz = fuzz.ratio(self.user_[index], item.instruction)
+            score_fuzz = fuzz.ratio(self.user_[index], item.instruction)/100
             if  score_fuzz >= 0.8:
                 if score_fuzz > max_score:
                     self.bot_[index] = item.output
+                    self.output[index].append(item)  
                     max_score = score_fuzz
             elif score_fuzz >= 0.3:
-                string1_embedding = self.model.wv[self.user_[index]]
-                string2_embedding = self.model.wv[item.instruction]
-                similar =  self.model.wv.similarity(string1_embedding, string2_embedding)
+                string1_embedding = self.user_[index].lower().split()
+                string2_embedding = item.instruction.lower().split()
+                similar =  self.model.wmdistance(string1_embedding, string2_embedding)/max(len(self.user_[index]), len(item.instruction))
                 if similar >= 0.3:
                     self.output[index].append(item)  
         self.score[index] = max_score  
@@ -98,7 +91,7 @@ class Conver():
         max_score = self.score[index]
         for item in self.output[index]:
             answer_ = self.questionAnswering(self.user_[index], item.output)
-            combine_score = answer_['score']*0.75 + fuzz.ratio(self.user_[index], item.output)*0.25
+            combine_score = answer_['score']*0.75 + fuzz.ratio(self.user_[index], item.output)*0.25/100
             if  combine_score >= max_score:
                 self.bot_[index] = answer_['answer']
                 max_score = combine_score
@@ -123,17 +116,40 @@ class Conver():
                 from gensim.models import Word2Vec
                 word2vec_model = Word2Vec.load_word2vec_format(model, binary=True)
                 return word2vec_model
-    
+            
+    def openAIAPIprocessing(self, index):
+        messages = []
+        # retrieve documentation intruction 
+        for item, index_temp in zip(self.output[index], range(5)):
+            messages.append({"role": "user", "content": str(item.instruction)})
+            messages.append({"role": "system", "content": str(item.output)})
+        messages.append({"role": "user", "content": self.user_[index]})
+        session = openai.ChatCompletion.create(model="gpt-3.5-turbo",\
+            messages = messages,\
+            temperature=0.1,\
+            max_tokens = 256)
+        # return
+        self.bot_[index] = session['choices'][0]['message']['content']
+
     def addConver(self, text):
         self.length +=1
         self.user_.append(text)
         self.topScoreList(self.length - 1)
         
     def getConver(self):
-        return self.answerGenerate(self.length - 1)     
+        if self.score[self.length-1] >= 0.9:
+            return self.answerGenerate(self.length - 1)  
+        else:
+            self.openAIAPIprocessing(self.length -1)
+            return self.bot_[self.length - 1]
     
     def getConverRule(self):
-        return self.bot_[self.length - 1]
+        if self.score[self.length-1] >= 0.9:
+            return self.bot_[self.length - 1]
+        else:
+            self.openAIAPIprocessing(self.length -1)
+            return self.bot_[self.length - 1]
+            
 
 
         
