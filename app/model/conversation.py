@@ -12,7 +12,7 @@ from app.func.func import audioToText
 from app.func.database import connectMongoEmbedded
 import openai
 
-openai.api_key  = ""
+openai.api_key  = "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"
 
 
 def readMongoEmbeddedDatabase():

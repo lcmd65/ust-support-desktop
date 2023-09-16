@@ -7,11 +7,12 @@ class Request():
         self.status = None
 
 class User():
-    def __init__(self, username, password, email, ID):
+    def __init__(self, username, password, email, ID, gender):
         self.username = username
         self.password = password
         self.email = email
         self.id = ID
+        self.gender = gender
         self.image = None
         self.requests = []
         

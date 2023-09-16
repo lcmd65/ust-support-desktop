@@ -55,10 +55,17 @@ class LoginUIQT(QWidget):
         from app.templates.user_info import UserChange
         self.edit = UserChange()
         self.edit.show()
+    
         
-    def on_mouse_press(self, event):
+    def on_mouse_press_forgot(self, event):
         if event.button() == Qt.MouseButton.LeftButton:
             self.eventButtonClickedLoginEditClick()
+    
+    def on_mouse_press_register(self, event):
+        if event.button() == Qt.MouseButton.LeftButton:
+            from app.templates.user_register import UserRegister
+            self.edit = UserRegister()
+            self.edit.show()
                     
     def initUI(self):
         self.main_layout = QVBoxLayout()
@@ -115,12 +122,23 @@ class LoginUIQT(QWidget):
         self.password.setPlaceholderText('Enter your password')
         self.frame_entry.addWidget(self.password)
 
+        self.label_linked = QFrame()
+        self.label_linked_layout = QHBoxLayout()
+        self.label_linked.setLayout(self.label_linked_layout)
+        self.frame_entry.addWidget(self.label_linked)
+        
         self.label_forgot = QLabel("Forgot Password?")
         self.label_forgot.setStyleSheet("color: black")
         self.label_forgot.setCursor(Qt.CursorShape.PointingHandCursor)
-        self.frame_entry.addWidget(self.label_forgot)
-        self.label_forgot.mousePressEvent = (partial(self.on_mouse_press))
-
+        self.label_forgot.mousePressEvent = (partial(self.on_mouse_press_forgot))
+        self.label_linked_layout.addWidget(self.label_forgot)
+        
+        self.label_register = QLabel("Register")
+        self.label_register.setStyleSheet("color: black")
+        self.label_register.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.label_register.mousePressEvent = (partial(self.on_mouse_press_register))
+        self.label_linked_layout.addWidget(self.label_register)
+        
         self.frame_login.addLayout(self.frame_entry)
         
         self.button_login = QPushButton("Sign In")

@@ -13,8 +13,10 @@ import mysql.connector
 import time
 import bson
 
-uri = "mongodb+srv://datlemindast:Minhdat060501@cluster0.ixcliyp.mongodb.net/?retryWrites=true&w=majority"
 
+###### Mongo ####################################################################################################################################
+
+uri = "mongodb+srv://datlemindast:Minhdat060501@cluster0.ixcliyp.mongodb.net/?retryWrites=true&w=majority"
 def getIPAddress():
     return requests.get("https://api.ipify.org").text
 
@@ -41,7 +43,29 @@ def connectMongoEmbedded():
         return documents
     except Exception as e:
         print(e)
-        
+     
+## register user    
+def addUserMongoDB(username, email, password, id , gender):
+    getClient()
+    app.environment.client.admin.command('ping')
+    db = app.environment.client["User"]
+    collection = db["User_info"]
+    user = collection.find()
+    for item in user:
+        if item["id"] == id or item['username'] == username:
+            return False
+    document = {
+            "_id":ObjectId(),
+            "username": str(username),
+            "password": str(password),
+            "email": str(email),
+            "gender": str(gender),
+            "id": int(id),
+        }
+    collection.insert_one(document) 
+    return True   
+
+# add request to mongo in chatbox
 def pushRequestToMongo(id, subject_text, request_text):
     document = {
             "_id": ObjectId(),
@@ -54,8 +78,8 @@ def pushRequestToMongo(id, subject_text, request_text):
     collection = db["Request"]
     collection.insert_one(document)
     return document
-    
 
+# return a request list 
 def connectUserRequest():
     getClient()
     try:
@@ -66,8 +90,30 @@ def connectUserRequest():
         return requests
     except Exception as e:
         print(e) 
+        
+def userParsing(account,password):
+    getClient()
+    db = app.environment.client["User"]
+    collection = db["User_info"]
+    documents = collection.find()
+    for item in documents:
+        if item["username"] == account and item["password"] == password:
+            app.environment.User_info = User(item["username"], item["password"], item["email"], item["id"], item["gender"])
+        
+def userAuthentication2(account, password):
+    app.environment.client = MongoClient(uri, server_api=ServerApi('1'))
+    addIPtoMongodbAtlas(getIPAddress())
+    # Send a ping to confirm a successful connection
+    app.environment.client.admin.command('ping')
+    db = app.environment.client["User"]
+    collection = db["User_info"]
+    documents = collection.find()
+    for item in documents:
+        if item["username"] == account and item["password"] == password:
+            return True
+    return False
 
-
+##### combine MySQL and MongoDB in Program Processing#########################################################################################
 def connectServer():
     try:
         try:
@@ -128,18 +174,6 @@ def addIMage():
     cnx = app.environment.user.cursor()
     cnx.execute("""INSERT INTO User_Image(id, image) VALUES(21280064, LOAD_FILE("/Users/lechonminhdat/Downloads/citations.png"))""")
     
-def userAuthentication2(account, password):
-    app.environment.client = MongoClient(uri, server_api=ServerApi('1'))
-    addIPtoMongodbAtlas(getIPAddress())
-    # Send a ping to confirm a successful connection
-    app.environment.client.admin.command('ping')
-    db = app.environment.client["User"]
-    collection = db["User"]
-    documents = collection.find()
-    for item in documents:
-        if item["username"] == account and item["password"] == password:
-            return True
-    return False
     
 def userAuthentication(account, password):
     """ task """
@@ -162,25 +196,6 @@ def userAuthentication(account, password):
                 return True
             else :
                 return False
-    
-
-def userParsing(account,password):
-    try:
-        connectServer()
-        cnx = app.environment.user.cursor()
-        cnx.execute("""SELECT * FROM User; """)
-        rows = cnx.fetchall()
-        for row in rows:
-            if row[1] == account and row[3] == password:
-                app.environment.User_info = User(row[1],row[3],row[2], row[0])
-    except:
-        db = app.environment.client["User"]
-        collection = db["User"]
-        documents = collection.find()
-        for item in documents:
-            if item["username"] == account and item["password"] == password:
-                app.environment.User_info = User(item["username"],item["password"], item["email"], item["_id"])
-        
     
 
 def connectUserImage(id):
