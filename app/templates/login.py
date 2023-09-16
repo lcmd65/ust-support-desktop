@@ -113,7 +113,7 @@ class LoginUIQT(QWidget):
         self.frame_entry.addWidget(self.account)
 
         self.label_password = QLabel("Password")
-        self.label_password.setStyleSheet("color: black")
+        self.label_password.setStyleSheet("color: black;")
         self.label_password.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.frame_entry.addWidget(self.label_password)
 
@@ -128,13 +128,14 @@ class LoginUIQT(QWidget):
         self.frame_entry.addWidget(self.label_linked)
         
         self.label_forgot = QLabel("Forgot Password?")
-        self.label_forgot.setStyleSheet("color: black")
+        self.label_forgot.setStyleSheet("color: rgb(13, 13, 148);text-decoration: underline")
         self.label_forgot.setCursor(Qt.CursorShape.PointingHandCursor)
         self.label_forgot.mousePressEvent = (partial(self.on_mouse_press_forgot))
         self.label_linked_layout.addWidget(self.label_forgot)
         
         self.label_register = QLabel("Register")
-        self.label_register.setStyleSheet("color: black")
+        self.label_register.setStyleSheet("color: rgb(13, 13, 148);text-decoration: underline")
+        self.label_register.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.label_register.setCursor(Qt.CursorShape.PointingHandCursor)
         self.label_register.mousePressEvent = (partial(self.on_mouse_press_register))
         self.label_linked_layout.addWidget(self.label_register)
