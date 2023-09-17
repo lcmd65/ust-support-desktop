@@ -131,7 +131,7 @@ class Conver():
         session = openai.ChatCompletion.create(model="gpt-3.5-turbo",\
             messages = messages,\
             temperature=0.1,\
-            max_tokens = 256)
+            max_tokens = 512)
         # return
         self.bot_[index] = session['choices'][0]['message']['content']
 
