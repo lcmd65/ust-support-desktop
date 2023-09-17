@@ -12,6 +12,7 @@ import requests
 import mysql.connector
 import time
 import bson
+from bson.binary import Binary
 
 
 ###### Mongo ####################################################################################################################################
@@ -49,20 +50,31 @@ def addUserMongoDB(username, email, password, id , gender):
     getClient()
     app.environment.client.admin.command('ping')
     db = app.environment.client["User"]
+    ## processing User basic infomation
     collection = db["User_info"]
     user = collection.find()
     for item in user:
         if item["id"] == id or item['username'] == username:
             return False
-    document = {
+    try:
+        document = {
+                "_id":ObjectId(),
+                "username": str(username),
+                "password": str(password),
+                "email": str(email),
+                "gender": str(gender),
+                "id": int(id),
+            }
+        collection.insert_one(document) 
+        ## processing User image 
+        collection_image = db["Image"]
+        document_image = {
             "_id":ObjectId(),
-            "username": str(username),
-            "password": str(password),
-            "email": str(email),
-            "gender": str(gender),
             "id": int(id),
+            "image": Binary(base64.b64encode(b'None'), 0),
         }
-    collection.insert_one(document) 
+        collection_image.insert_one(document_image)
+    except Exception as e: print(e)
     return True   
 
 # add request to mongo in chatbox
