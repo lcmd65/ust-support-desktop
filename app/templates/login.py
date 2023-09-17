@@ -44,6 +44,12 @@ class LoginUIQT(QWidget):
             self.home = HomeQT()
             self.home.show()
             self.close()
+        elif userAuthentication(account, password)== True:
+            app.func.database.userParsing(account, password)
+            app.environment.thread = QThread()
+            self.home = HomeQT()
+            self.home.show()
+            self.close()
         else:
             QMessageBox.critical(None, "Error", "Wrong username or password")
     
@@ -55,7 +61,6 @@ class LoginUIQT(QWidget):
         from app.templates.user_info import UserChange
         self.edit = UserChange()
         self.edit.show()
-    
         
     def on_mouse_press_forgot(self, event):
         if event.button() == Qt.MouseButton.LeftButton:
@@ -66,7 +71,13 @@ class LoginUIQT(QWidget):
             from app.templates.user_register import UserRegister
             self.edit = UserRegister()
             self.edit.show()
-                    
+    
+    def KeyPressEvent(self, qKeyEvent):
+        if qKeyEvent.key() == 16777220 or (qKeyEvent.key() == 43):
+            password = self.password.text()
+            account = self.account.text()
+            self.eventButtonClickedLoginClick(account, password)
+    
     def initUI(self):
         self.main_layout = QVBoxLayout()
 
@@ -79,11 +90,15 @@ class LoginUIQT(QWidget):
         self.label_privacy.setAlignment(Qt.AlignmentFlag.AlignBottom)
         
         self.box = QGroupBox()
+        self.box_layout = QHBoxLayout()
         self.box.setStyleSheet("background-color: transparent")
         self.box.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.box.setLayout(self.box_layout)
         
         self.layout_login = QFrame(self.box)
-        self.layout_login.setGeometry(QRect(500,150,350,500))
+        self.box_layout.addWidget(self.layout_login)
+        self.layout_login.setMaximumSize(350, 500)
+        self.layout_login.setMinimumSize(325, 450)
         self.frame_login= QVBoxLayout()
         self.layout_login.setLayout(self.frame_login)
         
