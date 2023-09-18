@@ -1,4 +1,4 @@
-## Documentation
+![image](https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/f9fd8274-b24a-424b-9145-fa0f7c3b2773)## Documentation
 
 ### Requirement
         requirement.txt
@@ -6,9 +6,11 @@
 
 ### Application
 #### Login
-<img width="600" alt="Screenshot 2023-09-07 at 23 15 12" src="https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/eee71c90-944f-4ab0-b31b-a17f2236d70b">
+<img width="400" alt="Screenshot 2023-09-07 at 23 15 12" src="https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/eee71c90-944f-4ab0-b31b-a17f2236d70b">
 
- <img width="600" alt="Screenshot 2023-09-07 at 23 15 35" src="https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/926ce4ae-74d8-4629-8dce-ed19a631a629">
+<img width="400" alt="Screenshot 2023-09-07 at 23 15 35" src="https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/926ce4ae-74d8-4629-8dce-ed19a631a629">
+
+![image](https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/a9c102c8-d10a-4315-87fe-d3408bdf6d87)
 
 #### Forgot Pass
 
@@ -17,28 +19,25 @@
 #### Home
 - Domain Chatbox
 - 
-<img width="600" alt="Screenshot 2023-09-07 at 23 16 12" src="https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/dc07419a-665e-45a3-aeb4-d7a279882328">
+<img width="400" alt="Screenshot 2023-09-07 at 23 15 35" src= "https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/3f8e00a1-a85e-48cd-af83-fac8b0e443f5")
 
-<img width="600" alt="Screenshot 2023-09-07 at 23 16 38" src="https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/446ebaa5-b1be-413b-ae4a-f85129ccfaca">
+<img width="400" alt="Screenshot 2023-09-07 at 23 15 35" src= "https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/5a2b7a4e-e03b-4682-8cfc-87087b6b7e81")
 
-<img width="603" alt="Screenshot 2023-09-07 at 23 17 23" src="https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/2aa6af91-41e5-4f50-8ea9-fd9bc1ddae3c">
+<img width="400" alt="Screenshot 2023-09-07 at 23 15 35" src= "https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/a6085dbf-b4fc-41bc-9ffa-7595d7c1d5fb")
 
-<img width="600" alt="Screenshot 2023-09-07 at 23 17 38" src="https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/0a900147-12b9-4aa3-92c5-ff6be11091f7">
 
- <img width="600" alt="Screenshot 2023-09-07 at 23 18 03" src="https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/87c05299-83b7-446c-8832-a6426bea35f8">
- 
 - Domain Chat Box (2 chain)
  
-<img width="601" alt="Screenshot 2023-09-07 at 23 18 23" src="https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/b91f7001-12e0-4ce6-8083-0ddfa13c1a50">
+<img width="400" alt="Screenshot 2023-09-07 at 23 18 23" src="https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/b91f7001-12e0-4ce6-8083-0ddfa13c1a50">
 
-<img width="600" alt="Screenshot 2023-09-07 at 23 19 07" src="https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/3b54454d-f914-40f6-b8b2-4e2966b20b56">
+<img width="400" alt="Screenshot 2023-09-07 at 23 19 07" src="https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/3b54454d-f914-40f6-b8b2-4e2966b20b56">
 
 - Domain Speech to Text
-<img width="600" alt="Screenshot 2023-09-07 at 23 19 19" src="https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/a531812b-a3de-4e08-9e67-4efe0fdfcda1">
+<img width="400" alt="Screenshot 2023-09-07 at 23 19 19" src="https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/a531812b-a3de-4e08-9e67-4efe0fdfcda1">
 
 
 <h3> Model </h3>
 
  - Rule-based embedded case (fuzzy match)
- - Falcon 180b
+ - Open AI API GPT3.5 turbo
 
