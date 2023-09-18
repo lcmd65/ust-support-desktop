@@ -274,6 +274,10 @@ class HomeQT(QMainWindow):
     def eventRequestTreeClicked(self, index):
         for i in reversed(range(self.hcmus_request_frame_layout.count())): 
             self.hcmus_request_frame_layout.itemAt(i).widget().deleteLater()
+        try:
+            for i in reversed(range(self.hcmus_request_button_layout.count())): 
+                self.hcmus_request_button_layout.itemAt(i).widget().deleteLater()
+        except: pass
         item = self.requests_user.itemFromIndex(index)
         for request in  app.environment.User_info.requests:
             if str(request["subject"]) == item.text():

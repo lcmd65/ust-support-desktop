@@ -1,6 +1,6 @@
 QLineEdit {
     border-radius: 8px;
-    border: 1px solid hsl(231, 77%, 27%);
+    border: 0px solid hsl(231, 77%, 27%);
     padding: 10px;
     background-color: #ffffff;
     margin: 1%;

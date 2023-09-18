@@ -1,4 +1,15 @@
 QPushButton {
     border-radius: 6px;
-    max-width: 20;
+    max-width: 100;
+    min-width: 80;
+}
+
+QPushButton::placeholder {
+    background-color: #0c0d53;
+    color: #ffffff;
+}
+
+QPushButton::hover {
+    background-color: #0c0d53;
+    color: #ffffff;
 }
