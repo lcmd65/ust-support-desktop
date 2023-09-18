@@ -10,7 +10,7 @@
 
 <img width="400" alt="Screenshot 2023-09-07 at 23 15 35" src="https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/926ce4ae-74d8-4629-8dce-ed19a631a629">
 
-![image](https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/a9c102c8-d10a-4315-87fe-d3408bdf6d87)
+<img width="400" alt="Screenshot 2023-09-07 at 23 15 35" src="https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/a9c102c8-d10a-4315-87fe-d3408bdf6d87">
 
 #### Forgot Pass
 
@@ -19,11 +19,11 @@
 #### Home
 - Domain Chatbox
 - 
-<img width="400" alt="Screenshot 2023-09-07 at 23 15 38" src= "https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/3f8e00a1-a85e-48cd-af83-fac8b0e443f5")
+<img width="400" alt="Screenshot 2023-09-07 at 23 15 38" src="https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/3f8e00a1-a85e-48cd-af83-fac8b0e443f5">
 
-<img width="400" alt="Screenshot 2023-09-07 at 23 15 32" src= "https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/5a2b7a4e-e03b-4682-8cfc-87087b6b7e81")
+<img width="400" alt="Screenshot 2023-09-07 at 23 15 32" src="https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/5a2b7a4e-e03b-4682-8cfc-87087b6b7e81">
 
-<img width="400" alt="Screenshot 2023-09-07 at 23 15 33" src= "https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/a6085dbf-b4fc-41bc-9ffa-7595d7c1d5fb")
+<img width="400" alt="Screenshot 2023-09-07 at 23 15 33" src="https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/a6085dbf-b4fc-41bc-9ffa-7595d7c1d5fb">
 
 
 - Domain Chat Box (2 chain)
