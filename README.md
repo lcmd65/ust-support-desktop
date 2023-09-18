@@ -1,4 +1,4 @@
-![image](https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/f9fd8274-b24a-424b-9145-fa0f7c3b2773)## Documentation
+## Documentation
 
 ### Requirement
         requirement.txt
@@ -19,11 +19,11 @@
 #### Home
 - Domain Chatbox
 - 
-<img width="400" alt="Screenshot 2023-09-07 at 23 15 35" src= "https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/3f8e00a1-a85e-48cd-af83-fac8b0e443f5")
+<img width="400" alt="Screenshot 2023-09-07 at 23 15 38" src= "https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/3f8e00a1-a85e-48cd-af83-fac8b0e443f5")
 
-<img width="400" alt="Screenshot 2023-09-07 at 23 15 35" src= "https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/5a2b7a4e-e03b-4682-8cfc-87087b6b7e81")
+<img width="400" alt="Screenshot 2023-09-07 at 23 15 32" src= "https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/5a2b7a4e-e03b-4682-8cfc-87087b6b7e81")
 
-<img width="400" alt="Screenshot 2023-09-07 at 23 15 35" src= "https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/a6085dbf-b4fc-41bc-9ffa-7595d7c1d5fb")
+<img width="400" alt="Screenshot 2023-09-07 at 23 15 33" src= "https://github.com/lcmd65/assistant-dsc.qt/assets/93373784/a6085dbf-b4fc-41bc-9ffa-7595d7c1d5fb")
 
 
 - Domain Chat Box (2 chain)
