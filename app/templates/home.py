@@ -310,11 +310,17 @@ class HomeQT(QMainWindow):
         QMessageBox.critical(None, "Message", repr("Success"))
         for i in reversed(range(self.hcmus_request_frame_layout.count())): 
             self.hcmus_request_frame_layout.itemAt(i).widget().deleteLater()
-        self.button_request_init.deleteLater()
-        self.hcmus_request_tree
+        for i in reversed(range(self.hcmus_request_button_layout.count())): 
+            self.hcmus_request_button_layout.itemAt(i).widget().deleteLater()
         self.requests_user.invisibleRootItem().appendRow(QStandardItem(str(document["subject"])))
         app.environment.User_info.updateRequest()
-            
+
+    def destroyRequest(self):
+        for i in reversed(range(self.hcmus_request_frame_layout.count())): 
+            self.hcmus_request_frame_layout.itemAt(i).widget().deleteLater()
+        for i in reversed(range(self.hcmus_request_button_layout.count())): 
+            self.hcmus_request_button_layout.itemAt(i).widget().deleteLater()
+    
     def eventButtonClickedInitRequest(self, event):
         if event.button() == Qt.MouseButton.LeftButton:
             try:
@@ -327,13 +333,23 @@ class HomeQT(QMainWindow):
             line_subject.setPlaceholderText("Chủ đề")
             line_request = QLineEdit()
             line_request.setPlaceholderText("Nhập Câu hỏi tại đây")
+
             self.button_request_init = QPushButton("Ok")
+            self.button_request_destroy = QPushButton("Cancel")
             self.button_request_init.clicked.connect(partial(self.initRequest,line_subject, line_request))
+            self.button_request_destroy.clicked.connect(partial(self.destroyRequest))
+            self.hcmus_request_button_layout = QHBoxLayout()
+            self.hcmus_request_button_layout.setAlignment(Qt.AlignmentFlag.AlignRight)
+            self.hcmus_request_button_layout.addWidget(self.button_request_init)
+            self.hcmus_request_button_layout.addWidget(self.button_request_destroy)
+
             self.setStyle(line_request, "app/static/css/home/tab1/line_init_request.css")
             self.setStyle(line_subject, "app/static/css/home/tab1/line_init_subject.css")
+            self.setStyle(self.button_request_init, "app/static/css/home/tab1/button_request.css")
+            self.setStyle(self.button_request_destroy, "app/static/css/home/tab1/button_request.css")
             self.hcmus_request_frame_layout.addWidget(line_subject)
             self.hcmus_request_frame_layout.addWidget(line_request)
-            self.hcmus_frame_layout.addWidget(self.button_request_init)
+            self.hcmus_frame_layout.addLayout(self.hcmus_request_button_layout)
         
     def circleImage(self, imagePath):
         source = QPixmap(imagePath)

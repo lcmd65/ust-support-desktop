@@ -48,7 +48,7 @@ class Conver():
         self.output = [] # topscore list
         self.model = self.sementicWord2Vec()
         self.llm_model = AutoModelForQuestionAnswering.from_pretrained("ancs21/xlm-roberta-large-vi-qa")
-        self.tokenizer = AutoTokenizer.from_pretrained("ancs21/xlm-roberta-large-vi-qa")
+        self.tokenizer = AutoTokenizer.from_pretrained("ancs21/xlm-roberta-large-vi-qa", use_fast=False)
         self.pipeline = pipeline("question-answering", model=self.llm_model, tokenizer=self.tokenizer)
     
     ## fuzzy matching 

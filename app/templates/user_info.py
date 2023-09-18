@@ -1,5 +1,4 @@
 import app.view.var
-from app.func.database import userAuthenticationNonePass
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import *
 from PyQt6.QtCore import *
